@@ -11,6 +11,7 @@
     "outDir": "./dist",
     "declarationDir": "./dist/dts",
     "emitDeclarationOnly": true,
+    "allowJs": true,
     "strict": false,
     "declaration": true,
     "paths": {
@@ -20,5 +21,6 @@
     },
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["node_modules", "lib", "es", "dist", "docs", "typings", "**/__test__", "test", "tests"]
+  "exclude": ["node_modules", "lib", "es", "dist", "docs", "typings", "**/__test__", "test", "tests"],
+  "include": ["src/**/*", "docs/**/*"]
 }

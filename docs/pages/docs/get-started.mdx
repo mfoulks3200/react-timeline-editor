@@ -1,0 +1,57 @@
+---
+title: Get Started
+description: Installation and Basic Usage
+---
+
+## Installation
+
+To get started, install the package from npm using your package manager of choice.
+
+:::code-group
+
+```bash [npm]
+npm install @mfoulks3200/react-timeline-editor
+```
+
+```bash [bun]
+bun install @mfoulks3200/react-timeline-editor
+```
+
+```bash [yarn]
+yarn add @mfoulks3200/react-timeline-editor
+```
+
+```bash [pnpm]
+pnpm install @mfoulks3200/react-timeline-editor
+```
+
+:::
+
+## Basic Usage
+
+import { TimelineEditor } from '../../snippets/BasicTimelinePreview.tsx';
+
+:::code-group
+ 
+<div data-title="Preview">
+    <div style={{
+        width: 'calc( 100% + 44px )',
+        height: '200px',
+        marginLeft: "-22px",
+        marginTop: "-20px",
+        marginBottom: "-20px",
+        overflow: "hidden"
+    }}>
+        <TimelineEditor />
+    </div>
+</div>
+ 
+```tsx [example.tsx]
+// [!include ~/snippets/BasicTimelinePreview.tsx] 
+```
+
+```ts [mock-data.ts]
+// [!include ~/../src/mock-data.ts] 
+```
+ 
+:::
