@@ -1,0 +1,320 @@
+.timeline-editor {
+  height: 600px;
+  width: 600px;
+  min-height: 32px;
+  position: relative;
+  font-size: 12px;
+  font-family: "PingFang SC";
+  background-color: #191b1d;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.timeline-editor:hover .timeline-editor-edit-area .ReactVirtualized__Grid::-webkit-scrollbar {
+  height: 4px;
+}
+.timeline-editor-edit-area {
+  flex: 1 1 auto;
+  margin-top: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.timeline-editor-edit-area .ReactVirtualized__Grid {
+  outline: none !important;
+  overflow: overlay !important;
+}
+.timeline-editor-edit-area .ReactVirtualized__Grid::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.timeline-editor-edit-area .ReactVirtualized__Grid::-webkit-scrollbar-track {
+  background-color: transparent !important;
+}
+.timeline-editor-edit-area .ReactVirtualized__Grid::-webkit-scrollbar-thumb {
+  background: #313132;
+  border-radius: 16px;
+}
+.timeline-editor-cursor {
+  cursor: ew-resize;
+  position: absolute;
+  top: 32px;
+  height: calc(100% - 32px);
+  box-sizing: border-box;
+  border-left: 1px solid #5297FF;
+  border-right: 1px solid #5297FF;
+  transform: translateX(-25%) scaleX(0.5);
+}
+.timeline-editor-cursor-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0) scaleX(2);
+  margin: auto;
+}
+.timeline-editor-cursor-area {
+  width: 16px;
+  height: 100%;
+  cursor: ew-resize;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.timeline-editor-time-area {
+  position: relative;
+  height: 32px;
+  flex: 0 0 auto;
+}
+.timeline-editor-time-area .ReactVirtualized__Grid {
+  outline: none;
+}
+.timeline-editor-time-area .ReactVirtualized__Grid::-webkit-scrollbar {
+  display: none;
+}
+.timeline-editor-time-area-interact {
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  top: 0;
+}
+.timeline-editor-time-unit {
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  box-sizing: content-box;
+  height: 4px !important;
+  bottom: 0 !important;
+  top: auto !important;
+}
+.timeline-editor-time-unit-big {
+  height: 8px !important;
+}
+.timeline-editor-time-unit-scale {
+  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -100%);
+}
+.timeline-editor-drag-line-container {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.timeline-editor-drag-line {
+  width: 0;
+  position: absolute;
+  top: 0;
+  height: 99%;
+  border-left: 1px dashed rgba(82, 151, 255, 0.6);
+}
+.timeline-editor-edit-row {
+  background-repeat: no-repeat, repeat;
+  background-image: linear-gradient(#191b1d, #191b1d), linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 0);
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+.timeline-editor-action {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #2f3134;
+}
+.timeline-editor-action .timeline-editor-action-left-stretch,
+.timeline-editor-action .timeline-editor-action-right-stretch {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  border-radius: 4px;
+  height: 100%;
+  overflow: hidden;
+}
+.timeline-editor-action .timeline-editor-action-left-stretch::after,
+.timeline-editor-action .timeline-editor-action-right-stretch::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 4px;
+  border-top: 28px solid transparent;
+  border-bottom: 28px solid transparent;
+}
+.timeline-editor-action .timeline-editor-action-left-stretch {
+  left: 0;
+}
+.timeline-editor-action .timeline-editor-action-left-stretch::after {
+  left: 0;
+  content: "";
+  border-left: 7px solid rgba(255, 255, 255, 0.1);
+  border-right: 7px solid transparent;
+}
+.timeline-editor-action .timeline-editor-action-right-stretch {
+  right: 0;
+}
+.timeline-editor-action .timeline-editor-action-right-stretch::after {
+  right: 0;
+  content: "";
+  border-right: 7px solid rgba(255, 255, 255, 0.1);
+  border-left: 7px solid transparent;
+}
+.timeline-editor {
+  height: 600px;
+  width: 600px;
+  min-height: 32px;
+  position: relative;
+  font-size: 12px;
+  font-family: "PingFang SC";
+  background-color: #191b1d;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.timeline-editor-cursor {
+  cursor: ew-resize;
+  position: absolute;
+  top: 32px;
+  height: calc(100% - 32px);
+  box-sizing: border-box;
+  border-left: 1px solid #5297FF;
+  border-right: 1px solid #5297FF;
+  transform: translateX(-25%) scaleX(0.5);
+}
+.timeline-editor-cursor-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0) scaleX(2);
+  margin: auto;
+}
+.timeline-editor-cursor-area {
+  width: 16px;
+  height: 100%;
+  cursor: ew-resize;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.timeline-editor:hover .timeline-editor-edit-area .ReactVirtualized__Grid::-webkit-scrollbar {
+  height: 4px;
+}
+.timeline-editor-edit-area {
+  flex: 1 1 auto;
+  margin-top: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.timeline-editor-edit-area .ReactVirtualized__Grid {
+  outline: none !important;
+  overflow: overlay !important;
+}
+.timeline-editor-edit-area .ReactVirtualized__Grid::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.timeline-editor-edit-area .ReactVirtualized__Grid::-webkit-scrollbar-track {
+  background-color: transparent !important;
+}
+.timeline-editor-edit-area .ReactVirtualized__Grid::-webkit-scrollbar-thumb {
+  background: #313132;
+  border-radius: 16px;
+}
+.timeline-editor-time-area {
+  position: relative;
+  height: 32px;
+  flex: 0 0 auto;
+}
+.timeline-editor-time-area .ReactVirtualized__Grid {
+  outline: none;
+}
+.timeline-editor-time-area .ReactVirtualized__Grid::-webkit-scrollbar {
+  display: none;
+}
+.timeline-editor-time-area-interact {
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  top: 0;
+}
+.timeline-editor-time-unit {
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  box-sizing: content-box;
+  height: 4px !important;
+  bottom: 0 !important;
+  top: auto !important;
+}
+.timeline-editor-time-unit-big {
+  height: 8px !important;
+}
+.timeline-editor-time-unit-scale {
+  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -100%);
+}
+.timeline-editor-drag-line-container {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.timeline-editor-drag-line {
+  width: 0;
+  position: absolute;
+  top: 0;
+  height: 99%;
+  border-left: 1px dashed rgba(82, 151, 255, 0.6);
+}
+.timeline-editor-edit-row {
+  background-repeat: no-repeat, repeat;
+  background-image: linear-gradient(#191b1d, #191b1d), linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 0);
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+.timeline-editor-action {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #2f3134;
+}
+.timeline-editor-action .timeline-editor-action-left-stretch,
+.timeline-editor-action .timeline-editor-action-right-stretch {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  border-radius: 4px;
+  height: 100%;
+  overflow: hidden;
+}
+.timeline-editor-action .timeline-editor-action-left-stretch::after,
+.timeline-editor-action .timeline-editor-action-right-stretch::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 4px;
+  border-top: 28px solid transparent;
+  border-bottom: 28px solid transparent;
+}
+.timeline-editor-action .timeline-editor-action-left-stretch {
+  left: 0;
+}
+.timeline-editor-action .timeline-editor-action-left-stretch::after {
+  left: 0;
+  content: "";
+  border-left: 7px solid rgba(255, 255, 255, 0.1);
+  border-right: 7px solid transparent;
+}
+.timeline-editor-action .timeline-editor-action-right-stretch {
+  right: 0;
+}
+.timeline-editor-action .timeline-editor-action-right-stretch::after {
+  right: 0;
+  content: "";
+  border-right: 7px solid rgba(255, 255, 255, 0.1);
+  border-left: 7px solid transparent;
+}

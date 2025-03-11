@@ -8,23 +8,17 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "baseUrl": "./",
+    "outDir": "./dist",
+    "declarationDir": "./dist/dts",
+    "emitDeclarationOnly": true,
     "strict": false,
+    "declaration": true,
     "paths": {
       "@/*": ["src/*"],
       "@@/*": ["src/.umi/*"],
-      "react": [ "./node_modules/@types/react"]
+      "react": ["./node_modules/@types/react"]
     },
     "allowSyntheticDefaultImports": true
   },
-  "exclude": [
-    "node_modules",
-    "lib",
-    "es",
-    "dist",
-    "docs",
-    "typings",
-    "**/__test__",
-    "test",
-    "tests"
-  ]
+  "exclude": ["node_modules", "lib", "es", "dist", "docs", "typings", "**/__test__", "test", "tests"]
 }
