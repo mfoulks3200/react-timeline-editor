@@ -5,7 +5,7 @@ import { prefix } from '../../utils/deal_class_prefix';
 import { parserPixelToTime } from '../../utils/deal_data';
 import { DragLineData } from './drag_lines';
 import { EditAction } from './edit_action';
-import './edit_row.less';
+import * as styles from './edit_row.less';
 
 export type EditRowProps = CommonProp & {
   areaRef: React.MutableRefObject<HTMLDivElement>;
@@ -20,20 +20,9 @@ export type EditRowProps = CommonProp & {
 };
 
 export const EditRow: FC<EditRowProps> = (props) => {
-  const {
-    rowData,
-    style = {},
-    onClickRow,
-    onDoubleClickRow,
-    onContextMenuRow,
-    areaRef,
-    scrollLeft,
-    startLeft,
-    scale,
-    scaleWidth,
-  } = props;
+  const { rowData, style = {}, onClickRow, onDoubleClickRow, onContextMenuRow, areaRef, scrollLeft, startLeft, scale, scaleWidth } = props;
 
-  const classNames = ['edit-row'];
+  const classNames = [styles.editRow];
   if (rowData?.selected) classNames.push('edit-row-selected');
 
   const handleTime = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -47,9 +36,7 @@ export const EditRow: FC<EditRowProps> = (props) => {
 
   return (
     <div
-      className={`${prefix(...classNames)} ${(rowData?.classNames || []).join(
-        ' ',
-      )}`}
+      className={`${classNames.join(' ')} ${(rowData?.classNames || []).join(' ')}`}
       style={style}
       onClick={(e) => {
         if (rowData && onClickRow) {

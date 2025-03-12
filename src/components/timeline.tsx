@@ -7,8 +7,10 @@ import { checkProps } from '../utils/check_props';
 import { getScaleCountByRows, parserPixelToTime, parserTimeToPixel } from '../utils/deal_data';
 import { Cursor } from './cursor/cursor';
 import { EditArea } from './edit_area/edit_area';
-import './timeline.less';
 import { TimeArea } from './time_area/time_area';
+import clsx from 'clsx';
+
+import * as styles from './timeline.less';
 
 export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, ref) => {
   const checkedProps = checkProps(props);
@@ -167,60 +169,101 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     }
   }, []);
 
+  const getTimeStr = () => {
+    const currentTime = engineRef.current.getTime();
+    const hours = Math.floor(currentTime / 3600)
+      .toFixed(0)
+      .padStart(2, '0');
+    const minutes = Math.floor((currentTime % 3600) / 60)
+      .toFixed(0)
+      .padStart(2, '0');
+    const seconds = Math.floor(currentTime % 60)
+      .toFixed(0)
+      .padStart(2, '0');
+    const milliseconds = Math.floor((currentTime % 1) * 1000)
+      .toFixed(0)
+      .padStart(3, '0');
+    return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+  };
+
   return (
-    <div ref={domRef} style={style} className={`${PREFIX} ${disableDrag ? PREFIX + '-disable' : ''}`}>
-      <ScrollSync ref={scrollSync}>
-        {({ scrollLeft, scrollTop, onScroll }) => (
-          <>
-            <TimeArea
-              {...checkedProps}
-              timelineWidth={width}
-              disableDrag={disableDrag || isPlaying}
-              setCursor={handleSetCursor}
-              cursorTime={cursorTime}
-              editorData={editorData}
-              scaleCount={scaleCount}
-              setScaleCount={handleSetScaleCount}
-              onScroll={onScroll}
-              scrollLeft={scrollLeft}
-            />
-            <EditArea
-              {...checkedProps}
-              timelineWidth={width}
-              ref={(ref) => ((areaRef.current as any) = ref?.domRef.current)}
-              disableDrag={disableDrag || isPlaying}
-              editorData={editorData}
-              cursorTime={cursorTime}
-              scaleCount={scaleCount}
-              setScaleCount={handleSetScaleCount}
-              scrollTop={scrollTop}
-              scrollLeft={scrollLeft}
-              setEditorData={handleEditorDataChange}
-              deltaScrollLeft={autoScroll && handleDeltaScrollLeft}
-              onScroll={(params) => {
-                onScroll(params);
-                onScrollVertical && onScrollVertical(params);
-              }}
-            />
-            {!hideCursor && (
-              <Cursor
+    <div
+      style={style}
+      className={clsx(styles.timelineContainer, `${disableDrag ? PREFIX + '-disable' : ''}`)}
+    >
+      <div className={styles.timelineRowsContainer}>
+        <div className={styles.timelineTime}>{getTimeStr()}</div>
+        {editorData.map((item, index) => (
+          <div
+            className={styles.timelineRowLabel}
+            style={{
+              height: (item.rowHeight ?? props.rowHeight ?? 32) + 'px',
+            }}
+          >
+            {item.name}
+          </div>
+        ))}
+      </div>
+      <div
+        ref={domRef}
+        className={styles.timelineEditor}
+      >
+        <ScrollSync ref={scrollSync}>
+          {({ scrollLeft, scrollTop, onScroll }) => (
+            <>
+              <TimeArea
                 {...checkedProps}
                 timelineWidth={width}
-                disableDrag={isPlaying}
-                scrollLeft={scrollLeft}
-                scaleCount={scaleCount}
-                setScaleCount={handleSetScaleCount}
+                disableDrag={disableDrag || isPlaying}
                 setCursor={handleSetCursor}
                 cursorTime={cursorTime}
                 editorData={editorData}
-                areaRef={areaRef}
-                scrollSync={scrollSync}
-                deltaScrollLeft={autoScroll && handleDeltaScrollLeft}
+                scaleCount={scaleCount}
+                setScaleCount={handleSetScaleCount}
+                onScroll={onScroll}
+                scrollLeft={scrollLeft}
+                nudgeByPixels={handleDeltaScrollLeft}
               />
-            )}
-          </>
-        )}
-      </ScrollSync>
+              <EditArea
+                {...checkedProps}
+                timelineWidth={width}
+                ref={(ref) => ((areaRef.current as any) = ref?.domRef.current)}
+                disableDrag={disableDrag || isPlaying}
+                editorData={editorData}
+                cursorTime={cursorTime}
+                scaleCount={scaleCount}
+                setScaleCount={handleSetScaleCount}
+                scrollTop={scrollTop}
+                scrollLeft={scrollLeft}
+                setEditorData={handleEditorDataChange}
+                deltaScrollLeft={autoScroll && handleDeltaScrollLeft}
+                onScroll={(params) => {
+                  onScroll(params);
+                  onScrollVertical && onScrollVertical(params);
+                }}
+              />
+              {!hideCursor && (
+                <Cursor
+                  {...checkedProps}
+                  timelineWidth={width}
+                  disableDrag={isPlaying}
+                  scrollLeft={scrollLeft}
+                  scaleCount={scaleCount}
+                  setScaleCount={handleSetScaleCount}
+                  setCursor={handleSetCursor}
+                  cursorTime={cursorTime}
+                  editorData={editorData}
+                  areaRef={areaRef}
+                  scrollSync={scrollSync}
+                  deltaScrollLeft={autoScroll && handleDeltaScrollLeft}
+                />
+              )}
+            </>
+          )}
+        </ScrollSync>
+      </div>
     </div>
   );
 });
+
+export default Timeline;

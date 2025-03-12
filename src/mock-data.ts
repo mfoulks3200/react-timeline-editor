@@ -15,6 +15,7 @@ export const MockEffectData: Record<string, TimelineEffect> = {
 export const MockRowData: TimelineRow[] = [
   {
     id: '0',
+    name: 'First Row',
     actions: [
       {
         id: 'action00',
@@ -26,6 +27,7 @@ export const MockRowData: TimelineRow[] = [
   },
   {
     id: '1',
+    name: 'Second Row',
     actions: [
       {
         id: 'action10',
@@ -37,6 +39,7 @@ export const MockRowData: TimelineRow[] = [
   },
   {
     id: '2',
+    name: 'Third Row',
     actions: [
       {
         id: 'action20',
@@ -50,6 +53,7 @@ export const MockRowData: TimelineRow[] = [
   },
   {
     id: '3',
+    name: 'Fourth Row',
     actions: [
       {
         id: 'action30',
