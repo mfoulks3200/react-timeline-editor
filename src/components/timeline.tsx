@@ -7,8 +7,10 @@ import { checkProps } from '../utils/check_props';
 import { getScaleCountByRows, parserPixelToTime, parserTimeToPixel } from '../utils/deal_data';
 import { Cursor } from './cursor/cursor';
 import { EditArea } from './edit_area/edit_area';
-import './timeline.less';
 import { TimeArea } from './time_area/time_area';
+import clsx from 'clsx';
+
+import * as styles from './timeline.less';
 
 export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, ref) => {
   const checkedProps = checkProps(props);
@@ -167,45 +169,34 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
     }
   }, []);
 
+  const getTimeStr = () => {
+    const currentTime = engineRef.current.getTime();
+    const hours = Math.floor(currentTime / 3600)
+      .toFixed(0)
+      .padStart(2, '0');
+    const minutes = Math.floor((currentTime % 3600) / 60)
+      .toFixed(0)
+      .padStart(2, '0');
+    const seconds = Math.floor(currentTime % 60)
+      .toFixed(0)
+      .padStart(2, '0');
+    const milliseconds = Math.floor((currentTime % 1) * 1000)
+      .toFixed(0)
+      .padStart(3, '0');
+    return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+  };
+
   return (
     <div
-      style={{
-        ...style,
-        width: '100%',
-        height: '100%',
-        minHeight: '300px',
-        display: 'flex',
-        flexDirection: 'row',
-      }}
-      className={`${PREFIX} ${disableDrag ? PREFIX + '-disable' : ''}`}
+      style={style}
+      className={clsx(styles.timelineContainer, `${disableDrag ? PREFIX + '-disable' : ''}`)}
     >
-      <div
-        style={{
-          width: '150px',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          borderRight: '1px solid #ddd',
-          position: 'absolute',
-          background: '#333',
-          zIndex: 1,
-        }}
-      >
-        <div
-          style={{
-            borderBottom: '1px solid #ddd',
-            height: '43px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          00:00:00.000
-        </div>
+      <div className={styles.timelineRowsContainer}>
+        <div className={styles.timelineTime}>{getTimeStr()}</div>
         {editorData.map((item, index) => (
           <div
+            className={styles.timelineRowLabel}
             style={{
-              borderBottom: '1px solid #ddd',
               height: (item.rowHeight ?? props.rowHeight ?? 32) + 'px',
             }}
           >
@@ -215,18 +206,11 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
       </div>
       <div
         ref={domRef}
-        style={{ width: '100%', position: 'relative', marginLeft: '150px', zIndex: 0 }}
+        className={styles.timelineEditor}
       >
         <ScrollSync ref={scrollSync}>
           {({ scrollLeft, scrollTop, onScroll }) => (
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
+            <>
               <TimeArea
                 {...checkedProps}
                 timelineWidth={width}
@@ -274,7 +258,7 @@ export const Timeline = React.forwardRef<TimelineState, TimelineEditor>((props, 
                   deltaScrollLeft={autoScroll && handleDeltaScrollLeft}
                 />
               )}
-            </div>
+            </>
           )}
         </ScrollSync>
       </div>

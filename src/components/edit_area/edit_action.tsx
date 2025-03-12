@@ -7,7 +7,7 @@ import { getScaleCountByPixel, parserTimeToPixel, parserTimeToTransform, parserT
 import { RowDnd } from '../row_rnd/row_rnd';
 import { RndDragCallback, RndDragEndCallback, RndDragStartCallback, RndResizeCallback, RndResizeEndCallback, RndResizeStartCallback, RowRndApi } from '../row_rnd/row_rnd_interface';
 import { DragLineData } from './drag_lines';
-import './edit_action.less';
+import * as styles from './edit_action.less';
 
 export type EditActionProps = CommonProp & {
   row: TimelineRow;
@@ -86,7 +86,7 @@ export const EditAction: FC<EditActionProps> = ({
   const gridSize = scaleWidth / scaleSplitCount;
 
   // 动作的名称
-  const classNames = ['action'];
+  const classNames = [styles.action];
   if (movable) classNames.push('action-movable');
   if (selected) classNames.push('action-selected');
   if (flexible) classNames.push('action-flexible');
@@ -232,12 +232,12 @@ export const EditAction: FC<EditActionProps> = ({
             onContextMenuAction(e, { row, action, time: time });
           }
         }}
-        className={prefix((classNames || []).join(' '))}
+        className={classNames.join(' ')}
         style={{ height: rowHeight }}
       >
         {getActionRender && getActionRender(nowAction, nowRow)}
-        {flexible && <div className={prefix('action-left-stretch')} />}
-        {flexible && <div className={prefix('action-right-stretch')} />}
+        {flexible && <div className={styles.actionLeftStretch} />}
+        {flexible && <div className={styles.actionRightStretch} />}
       </div>
     </RowDnd>
   );

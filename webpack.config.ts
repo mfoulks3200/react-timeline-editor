@@ -11,22 +11,27 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.less$/i,
-        use: [
-          // compiles Less to CSS
-          'style-loader',
-          'css-loader',
-          'less-loader',
-        ],
-      },
-      {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.less$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: true,
+            },
+          },
+          'less-loader',
+        ],
       },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.less'],
     alias: {
       forms: path.resolve(__dirname, 'src/forms/'),
       '@/*': path.resolve(__dirname, 'src/*'),

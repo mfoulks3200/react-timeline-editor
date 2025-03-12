@@ -1,13 +1,53 @@
-.timeline-editor {
-  height: 600px;
-  width: 600px;
-
-  min-height: 32px;
+.timelineContainer {
   position: relative;
   font-size: 12px;
   font-family: "PingFang SC";
   background-color: #191b1d;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  display: flex;
+  flex-direction: row;
+}
+
+.timelineEditor {
+  width: 100%;
+  position: relative;
+  margin-left: 150px;
+  z-index: 0;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+}
+
+.timelineRowsContainer {
+  width: 150px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  position: absolute;
+  background: #191b1d;
+  color: white;
+  z-index: 1;
+}
+
+.timelineTime {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-family: monospace;
+}
+
+.timelineRowLabel{
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-left: 8px;
+  padding-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  user-select: none;
 }

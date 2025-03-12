@@ -53,6 +53,7 @@ export const MockRowData: TimelineRow[] = [
   },
   {
     id: '3',
+    name: 'Fourth Row',
     actions: [
       {
         id: 'action30',

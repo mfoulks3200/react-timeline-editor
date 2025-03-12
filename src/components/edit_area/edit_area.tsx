@@ -6,9 +6,10 @@ import { EditData } from '../../interface/timeline';
 import { prefix } from '../../utils/deal_class_prefix';
 import { parserTimeToPixel } from '../../utils/deal_data';
 import { DragLines } from './drag_lines';
-import './edit_area.less';
 import { EditRow } from './edit_row';
 import { useDragLine } from './hooks/use_drag_line';
+
+import * as styles from './edit_area.less';
 
 export type EditAreaProps = CommonProp & {
   /** 距离左侧滚动距离 */
@@ -153,7 +154,10 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
   }, [editorData]);
 
   return (
-    <div ref={editAreaRef} className={prefix('edit-area')}>
+    <div
+      ref={editAreaRef}
+      className={styles.editArea}
+    >
       <AutoSizer>
         {({ width, height }) => {
           // 获取全部高度
@@ -178,6 +182,7 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
 
           return (
             <Grid
+              className={styles.virtualGrid}
               columnCount={1}
               rowCount={heights.length}
               ref={gridRef}
@@ -195,7 +200,12 @@ export const EditArea = React.forwardRef<EditAreaState, EditAreaProps>((props, r
           );
         }}
       </AutoSizer>
-      {dragLine && <DragLines scrollLeft={scrollLeft} {...dragLineData} />}
+      {dragLine && (
+        <DragLines
+          scrollLeft={scrollLeft}
+          {...dragLineData}
+        />
+      )}
     </div>
   );
 });

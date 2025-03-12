@@ -3,7 +3,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { AutoSizer, Grid, GridCellRenderer, OnScrollParams } from 'react-virtualized';
 import { CommonProp } from '../../interface/common_prop';
 import { prefix } from '../../utils/deal_class_prefix';
-import './time_area.less';
+import * as styles from './time_area.less';
 
 /** Animation Timeline Component Parameters */
 export type TimeAreaProps = CommonProp & {
@@ -41,16 +41,16 @@ export const TimeArea: FC<TimeAreaProps> = ({
   /** Cell renderer */
   const cellRenderer: GridCellRenderer = ({ columnIndex, key, style }) => {
     const isShowScale = showUnit ? columnIndex % scaleSplitCount === 0 : true;
-    const classNames = ['time-unit'];
-    if (isShowScale) classNames.push('time-unit-big');
+    const classNames = [styles.timeUnit];
+    if (isShowScale) classNames.push(styles.timeUnitBig);
     const item = (showUnit ? columnIndex / scaleSplitCount : columnIndex) * scale;
     return (
       <div
         key={key}
         style={{ ...style, userSelect: 'none' }}
-        className={prefix(...classNames)}
+        className={classNames.join(' ')}
       >
-        {isShowScale && <div className={prefix('time-unit-scale')}>{getScaleRender ? getScaleRender(item) : item}</div>}
+        {isShowScale && <div className={styles.timeUnitScale}>{getScaleRender ? getScaleRender(item) : item}</div>}
       </div>
     );
   };
@@ -83,13 +83,14 @@ export const TimeArea: FC<TimeAreaProps> = ({
   };
   const estColumnWidth = getColumnWidth({ index: 1 });
   return (
-    <div className={prefix('time-area')}>
+    <div className={styles.timeArea}>
       <AutoSizer>
         {({ width, height }) => {
           return (
             <>
               <Grid
                 ref={gridRef}
+                className={styles.virtualGrid}
                 columnCount={showUnit ? scaleCount * scaleSplitCount + 1 : scaleCount}
                 columnWidth={getColumnWidth}
                 estimatedColumnSize={estColumnWidth}
@@ -131,7 +132,7 @@ export const TimeArea: FC<TimeAreaProps> = ({
                   }
                 }}
                 ref={interactRef}
-                className={prefix('time-area-interact')}
+                className={styles.timeAreaInteract}
               ></div>
             </>
           );
